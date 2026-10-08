@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔐 Pistas secretas</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ffe4ef, #f8d8ff);
+      color: #4a3040;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contenedor {
+      width: 90%;
+      max-width: 500px;
+      background: white;
+      padding: 30px;
+      border-radius: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 5px;
+    }
+
+    .subtitulo {
+      color: #987080;
+      margin-bottom: 25px;
+    }
+
+    .pista {
+      background: #fff4f8;
+      padding: 20px;
+      border-radius: 18px;
+      margin: 20px 0;
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    button {
+      background: #8f4f70;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 15px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #713c58;
+    }
+
+    #mensaje {
+      display: none;
+      margin-top: 20px;
+      padding: 18px;
+      background: #fce3ed;
+      border-radius: 15px;
+      font-size: 17px;
+    }
+
+    .fecha {
+      font-size: 14px;
+      color: #987080;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="contenedor">
+
+    <div class="fecha" id="fecha"></div>
+
+    <h1>🔐 Pistas secretas</h1>
+
+    <div class="subtitulo">
+      Para Bebe blanco 💗
+    </div>
+
+    <div class="pista">
+      <strong>La pista de hoy...</strong>
+      <p id="pistaTexto"></p>
+    </div>
+
+    <button onclick="mostrarPista()">
+      🔓 Descubrir pista
+    </button>
+
+    <div id="mensaje"></div>
+
+  </div>
+
+<script>
+
+  const pistas = {
+
+    "2026-10-08": {
+      pista: "Todo gran misterio empieza con algo pequeño... 👀",
+      respuesta: "Primera pista: hay algo relacionado con una cosa que te gusta mucho."
+    },
+
+    "2026-10-09": {
+      pista: "Ayer descubriste que existe una conexión. Hoy nos acercamos un poquito más... 🕵️‍♀️",
+      respuesta: "Segunda pista: la sorpresa fue pensada especialmente para ti."
+    },
+
+    "2026-10-10": {
+      pista: "Tres días, tres pistas... ¿ya tienes alguna sospecha? 😏",
+      respuesta: "Tercera pista: piensa en algo que elegirías tú misma."
+    },
+
+    "2026-10-11": {
+      pista: "El misterio empieza a tomar forma... 🔎",
+      respuesta: "Cuarta pista: no intentes resolverlo mirando una sola pista."
+    },
+
+    "2026-10-12": {
+      pista: "Mañana es el gran día... 🎂",
+      respuesta: "Última pista: alguien estuvo pensando bastante en cómo hacerte sonreír. 💗"
+    },
+
+    "2026-10-13": {
+      pista: "🎉 ¡Llegaste al gran día!",
+      respuesta: "🎁 ¡SORPRESA! Hoy finalmente descubrirías qué hay detrás de todas las pistas. 💕"
+    }
+
+  };
+
+
+  // FECHA DE PRUEBA
+  // Por ahora usamos el 8 de octubre para poder probarlo.
+
+  const fechaPrueba = "2026-10-08";
+
+  const informacion = pistas[fechaPrueba];
+
+  document.getElementById("pistaTexto").textContent =
+    informacion.pista;
+
+  document.getElementById("fecha").textContent =
+    "📅 " + fechaPrueba;
+
+
+  function mostrarPista() {
+
+    const mensaje = document.getElementById("mensaje");
+
+    mensaje.textContent = informacion.respuesta;
+
+    mensaje.style.display = "block";
+
+  }
+
+</script>
+
+</body>
+</html>
