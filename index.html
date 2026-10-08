@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Un misterio para Bebe blanco 💗</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ffe6f0, #f7d9ff);
+      color: #4a3040;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+      background: white;
+      padding: 30px;
+      border-radius: 25px;
+      text-align: center;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+    }
+
+    .emoji {
+      font-size: 50px;
+    }
+
+    h1 {
+      color: #b84d7d;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #795568;
+      margin-bottom: 25px;
+    }
+
+    .date {
+      font-size: 14px;
+      color: #9a6a80;
+      margin-bottom: 10px;
+    }
+
+    .hint {
+      background: #fff4f8;
+      padding: 20px;
+      border-radius: 18px;
+      margin: 20px 0;
+      line-height: 1.6;
+    }
+
+    button {
+      border: none;
+      background: #b84d7d;
+      color: white;
+      padding: 14px 25px;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #963d66;
+    }
+
+    .reveal {
+      display: none;
+      margin-top: 20px;
+      padding: 18px;
+      background: #fce5ef;
+      border-radius: 15px;
+      line-height: 1.6;
+    }
+
+    .countdown {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #b84d7d;
+    }
+
+    .final {
+      font-size: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="emoji">🔐</div>
+
+    <h1>Para Bebe blanco 💗</h1>
+
+    <p class="subtitle">
+      Hay algo que tienes que descubrir...
+    </p>
+
+    <div class="date" id="date"></div>
+
+    <div class="hint" id="hint"></div>
+
+    <button id="button" onclick="showHint()">
+      🔓 Descubrir pista
+    </button>
+
+    <div class="reveal" id="reveal"></div>
+
+    <div class="countdown" id="countdown"></div>
+
+  </div>
+
+
+  <script>
+
+    // =====================================
+    // PISTAS
+    // =====================================
+
+    const pistas = {
+
+      "2026-10-08": {
+        numero: 1,
+        introduccion:
+          "Todo gran misterio empieza con algo pequeño... 👀",
+
+        pista:
+          "Primera pista: esta sorpresa tiene algo que ver contigo. Pero todavía no voy a decirte qué. 😌"
+      },
+
+      "2026-10-09": {
+        numero: 2,
+        introduccion:
+          "Ayer descubriste que esto tiene que ver contigo...",
+
+        pista:
+          "Segunda pista: piensa en algo que te gusta mucho. Quizás vas por el camino correcto. 👀"
+      },
+
+      "2026-10-10": {
+        numero: 3,
+        introduccion:
+          "Tres días. Tres pasos. Y cada vez falta menos... 🕵️‍♀️",
+
+        pista:
+          "Tercera pista: la sorpresa fue pensada especialmente para ti. No es algo elegido al azar. 💗"
+      },
+
+      "2026-10-11": {
+        numero: 4,
+        introduccion:
+          "Ya estás empezando a acercarte demasiado... 😂",
+
+        pista:
+          "Cuarta pista: si juntas las pistas anteriores, probablemente puedas empezar a imaginar qué viene."
+      },
+
+      "2026-10-12": {
+        numero: 5,
+        introduccion:
+          "Mañana es el gran día. Pero todavía queda una última pista... 🔐",
+
+        pista:
+          "Quinta pista: mañana vas a descubrir la respuesta. Solo puedo decirte que espero que te haga sonreír. 💕"
+      },
+
+      "2026-10-13": {
+        numero: 6,
+        introduccion:
+          "🎂 ¡Llegaste al gran día!",
+
+        pista:
+          "🎁 ¡SORPRESA! Aquí iría la revelación final que quieres darle a Bebe blanco. 💗"
+      }
+
+    };
+
+
+    // =====================================
+    // FECHA ACTUAL
+    // =====================================
+
+    function obtenerFecha() {
+
+      const ahora = new Date();
+
+      const año = ahora.getFullYear();
+
+      const mes = String(ahora.getMonth() + 1).padStart(2, "0");
+
+      const dia = String(ahora.getDate()).padStart(2, "0");
+
+      return `${año}-${mes}-${dia}`;
+
+    }
+
+
+    // =====================================
+    // MOSTRAR PISTA DEL DÍA
+    // =====================================
+
+    function cargarPagina() {
+
+      const fecha = obtenerFecha();
+
+      const pista = pistas[fecha];
+
+      const fechaTexto = document.getElementById("date");
+      const texto = document.getElementById("hint");
+      const boton = document.getElementById("button");
+      const countdown = document.getElementById("countdown");
+
+      if (!pista) {
+
+        fechaTexto.innerText = "🔒 Todavía no hay una pista disponible";
+
+        texto.innerText =
+          "Vuelve en la fecha indicada para descubrir la siguiente pista. 👀";
+
+        boton.style.display = "none";
+
+        return;
+      }
+
+
+      fechaTexto.innerText =
+        `Pista #${pista.numero} · ${formatearFecha(fecha)}`;
+
+      texto.innerText = pista.introduccion;
+
+
+      // Guardamos la pista del día
+      document.getElementById("reveal").innerText =
+        pista.pista;
+
+
+      actualizarCuentaRegresiva(countdown);
+
+    }
+
+
+    // =====================================
+    // BOTÓN PARA REVELAR
+    // =====================================
+
+    function showHint() {
+
+      const reveal = document.getElementById("reveal");
+
+      reveal.style.display = "block";
+
+    }
+
+
+    // =====================================
+    // FORMATO DE FECHA
+    // =====================================
+
+    function formatearFecha(fecha) {
+
+      const partes = fecha.split("-");
+
+      const fechaObjeto = new Date(
+        partes[0],
+        partes[1] - 1,
+        partes[2]
+      );
+
+      return fechaObjeto.toLocaleDateString(
+        "es-CO",
+        {
+          day: "numeric",
+          month: "long"
+        }
+      );
+
+    }
+
+
+    // =====================================
+    // CUENTA REGRESIVA
+    // =====================================
+
+    function actualizarCuentaRegresiva(elemento) {
+
+      const cumpleaños =
+        new Date("2026-10-13T00:00:00");
+
+      const ahora = new Date();
+
+      const diferencia =
+        cumpleaños - ahora;
+
+      const dias =
+        Math.ceil(
+          diferencia / (1000 * 60 * 60 * 24)
+        );
+
+      if (dias > 0) {
+
+        elemento.innerText =
+          `🎂 Faltan ${dias} día(s) para el gran día`;
+
+      } else {
+
+        elemento.innerText =
+          "🎉 ¡Hoy es el gran día!";
+
+      }
+
+    }
+
+
+    // =====================================
+    // INICIAR
+    // =====================================
+
+    cargarPagina();
+
+  </script>
+
+</body>
+  </html>
